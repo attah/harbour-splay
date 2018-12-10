@@ -4,12 +4,13 @@ import Sailfish.Silica 1.0
 Page {
     id: page
 
-    property string name : globalMedia.name
-    property string title : globalMedia.title
-    property string imageurl : globalMedia.imageurl
-    property string url : globalMedia.source
-    property string downloadurl : globalMedia.downlaodurl
-    property int id: globalMedia.id
+    property bool now_playing: false
+    property string name : now_playing ? globalMedia.name : ""
+    property string title : now_playing ? globalMedia.title : ""
+    property string imageurl : now_playing ? globalMedia.imageurl : ""
+    property string url : now_playing ? globalMedia.source : ""
+    property string downloadurl : now_playing ? globalMedia.downlaodurl : ""
+    property int id: now_playing ? globalMedia.id : ""
 
     SilicaFlickable {
         anchors.fill: parent
@@ -148,13 +149,13 @@ Page {
                      readonly property int minutes: Math.floor(globalMedia.position / 60000)
                      readonly property int seconds: Math.round((globalMedia.position % 60000) / 1000)
 
-                     text: Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss"))
+                     text: globalMedia.duration !== 0 ? Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss")) : ""
                  }
                  Label {
                      anchors.verticalCenter: parent.verticalCenter
 
                      font.pixelSize: Theme.fontSizeLarge
-                     text: " / "
+                     text: globalMedia.duration !== 0 ? " / " : "Live!"
                  }
                  Label {
                      anchors.verticalCenter: parent.verticalCenter
@@ -163,7 +164,7 @@ Page {
                      readonly property int minutes: Math.floor(globalMedia.duration / 60000)
                      readonly property int seconds: Math.round((globalMedia.duration % 60000) / 1000)
 
-                     text: globalMedia.duration !== 0 ? Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss")) : "Live!"
+                     text: globalMedia.duration !== 0 ?  Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss")) : ""
                  }
              }
 

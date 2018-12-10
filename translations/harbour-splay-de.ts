@@ -74,11 +74,4 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
-<context>
-    <name>SPlayListViewPage</name>
-    <message>
-        <source>Nu spelas</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
 </TS>

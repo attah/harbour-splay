@@ -14,7 +14,7 @@ Page {
             visible: globalMedia.source != ""
             MenuItem {
                 text: qsTr("Nu spelas")
-                onClicked: pageStack.push(Qt.resolvedUrl("PlayPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("PlayPage.qml"), {now_playing: true})
             }
         }
 
