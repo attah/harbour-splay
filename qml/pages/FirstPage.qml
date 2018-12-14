@@ -3,6 +3,19 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
+    property bool first_start: true
+
+    onStatusChanged: {
+        console.log("status", status);
+        if (status == PageStatus.Active && !first_start) {
+            console.log("refräs");
+            lastpublished.refresh();
+        }
+    }
+
+    Component.onCompleted: {
+        appWin.reactivated.connect(lastpublished.refresh)
+    }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
@@ -151,10 +164,6 @@ Page {
 
 
                 model: lastpublished.model
-
-                Component.onCompleted: {
-                    console.log(parent.width, parent.height)
-                }
 
 
                 delegate: BackgroundItem {

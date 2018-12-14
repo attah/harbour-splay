@@ -37,6 +37,11 @@ Item {
         xhr.send();
     }
 
+    function refresh() {
+        console.log("refresh");
+        get(source);
+    }
+
     function updateJSONModel() {
 
         if(more_url === "")

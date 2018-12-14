@@ -11,6 +11,14 @@ ApplicationWindow
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: Orientation.Portrait
 
+    signal reactivated
+
+    onVisibleChanged: {
+        console.log("viz",visible)
+        if (visible)
+            reactivated()
+    }
+
 
     Item {
         id: db

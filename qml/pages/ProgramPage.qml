@@ -23,6 +23,9 @@ Page {
             source: url
             query: "$.episodes"
             more_query: "$.pagination.nextpage"
+            Component.onCompleted: {
+                appWin.reactivated.connect(episodes.refresh())
+            }
         }
 
 
