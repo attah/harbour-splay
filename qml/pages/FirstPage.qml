@@ -172,11 +172,6 @@ Page {
                     height: parent.height
                     visible: model.listenpodfile ? true : model.broadcast ? true : false
 
-                    Component.onCompleted: {
-                        console.log(model.imageurl)
-
-                    }
-
                     Image {
                         id:img
                         width: parent.height

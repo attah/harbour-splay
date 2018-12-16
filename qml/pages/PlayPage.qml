@@ -51,19 +51,16 @@ Page {
                          going_left = true
                          x = left_position
                      }
-                     console.log(pad, left_position, right_position, scroll_distance);
                  }
                  Behavior on x {
                      NumberAnimation { duration: 33 * title_label.scroll_distance }
                  }
                  onXChanged: {
                      if (!going_left && x === right_position) {
-                         console.log("go left");
                          x = left_position;
                          going_left = true;
                      }
                      else if (going_left  && x === left_position) {
-                         console.log("go right");
                          x = right_position;
                          going_left = false;
                      }

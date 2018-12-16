@@ -68,6 +68,21 @@ ApplicationWindow
         }
     }
 
+
+    Timer {
+        id: playRetry
+
+        property int retry_cnt: 0
+
+        interval: 1000; running: false; repeat: true
+        onTriggered: { console.log("retry playback");
+                       retry_cnt++;
+                       if(retry_cnt > 10) { stop() };
+                       globalMedia.play();
+        }
+    }
+
+
     MediaPlayer {
         property string name
         property string title
@@ -77,7 +92,18 @@ ApplicationWindow
 
         id: globalMedia
         autoLoad: true
-        onStatusChanged: {console.log(status); if( status === MediaPlayer.Loaded ) {play()}}
+        onStatusChanged: {console.log("status",status); if( status === MediaPlayer.Loaded ) {play()}}
+        onAvailabilityChanged: {console.log("avail", availability)}
+        onError: {console.log("err", error);
+                  if (error === MediaPlayer.NetworkError) {
+                    playRetry.retry_cnt = 0;
+                    playRetry.start();
+                  }
+        }
+        onPlaying: {
+            playRetry.stop();
+        }
+
     }
 
 }
