@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
+    allowedOrientations: Orientation.Portrait
 
     property bool now_playing: false
     property string name : now_playing ? globalMedia.name : ""
@@ -10,6 +11,7 @@ Page {
     property string imageurl : now_playing ? globalMedia.imageurl : ""
     property string url : now_playing ? globalMedia.source : ""
     property string downloadurl : now_playing ? globalMedia.downlaodurl : ""
+    property string description: now_playing ? globalMedia.description : ""
     property int id: now_playing ? globalMedia.id : ""
 
     SilicaFlickable {
@@ -68,15 +70,34 @@ Page {
 
              }
 
-
-
+             Label {
+                id: descriptionLabel
+                visible: false
+                width: parent.width-2*Theme.paddingLarge
+                x: Theme.paddingLarge
+                text: description
+                wrapMode: Text.WordWrap
+                MouseArea {
+                   anchors.fill: parent
+                   onClicked: {descriptionLabel.visible = false; coverimage.visible = true}
+                }
+             }
              Image {
+                 id: coverimage
                  source: imageurl
                  width: parent.width*0.8
                  height: parent.width*0.8
                  anchors.horizontalCenter: parent.horizontalCenter
 
+                 MouseArea {
+                    anchors.fill: parent
+                    onClicked: {coverimage.visible = false; descriptionLabel.visible = true}
+                 }
              }
+
+
+
+
 
         }
          Column {

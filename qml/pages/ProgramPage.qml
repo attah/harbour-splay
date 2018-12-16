@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
+    allowedOrientations: Orientation.All
 
     property string url
     property string program_name
@@ -72,7 +73,8 @@ Page {
                                 imageurl: imageurl,
                                 url: model.listenpodfile ? model.listenpodfile.url : model.broadcast.broadcastfiles[0].url,
                                 id: program.id,
-                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined});
+                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,
+                                description: model.description});
             }
         }
         VerticalScrollDecorator {}

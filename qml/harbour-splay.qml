@@ -9,7 +9,7 @@ ApplicationWindow
     id: appWin
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
-    allowedOrientations: Orientation.Portrait
+    allowedOrientations: defaultAllowedOrientations
 
     signal reactivated
 
@@ -88,6 +88,7 @@ ApplicationWindow
         property string title
         property string imageurl
         property string downloadurl
+        property string description
         property int id
 
         id: globalMedia
