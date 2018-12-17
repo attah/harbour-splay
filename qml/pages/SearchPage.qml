@@ -41,7 +41,7 @@ Page {
         model: results.model
         anchors.fill: parent
 
-        delegate: BackgroundItem {
+        delegate: ListItem {
             id: delegate
 
             Column {
@@ -62,10 +62,24 @@ Page {
             }
             onClicked:  {
                 console.log("pushing program", id)
-                pageStack.push(Qt.resolvedUrl("ProgramPage.qml"),
-                               {url:  "https://api.sr.se/api/v2/episodes/index?format=json&size=20&programid="+id,
-                                program_name: name});
+                pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
+                               {name: program.name,
+                                title: title,
+                                imageurl: imageurl,
+                                url: model.listenpodfile ? model.listenpodfile.url : model.broadcast.broadcastfiles[0].url,
+                                id: program.id,
+                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,
+                                description: model.description});
 
+
+            }
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Gå till program")
+                    onClicked: pageStack.push(Qt.resolvedUrl("ProgramPage.qml"),
+                                              {url:  "https://api.sr.se/api/v2/episodes/index?format=json&size=20&programid="+program.id,
+                                               program_name: program.name});
+                }
             }
         }
         VerticalScrollDecorator {}

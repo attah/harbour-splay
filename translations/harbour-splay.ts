@@ -120,5 +120,9 @@
         <source>Mer</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Gå till program</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
