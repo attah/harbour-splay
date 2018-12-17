@@ -57,7 +57,7 @@ Page {
 
 
             Label {
-                text: "Livekanaler"
+                text: qsTr("Livekanaler")
                 x: Theme.paddingMedium
             }
             Row {
@@ -150,7 +150,7 @@ Page {
             }
 
             Label {
-                text: "Senast publicerade program"
+                text: qsTr("Senast publicerade program")
                 x: Theme.paddingMedium
             }
             JSONListModel {

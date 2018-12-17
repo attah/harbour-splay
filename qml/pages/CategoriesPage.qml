@@ -25,7 +25,7 @@ Page {
         model: programs.model
         anchors.fill: parent
         header: PageHeader {
-            title: "Kategorier"
+            title: qsTr("Kategorier")
         }
         delegate: BackgroundItem {
             id: delegate

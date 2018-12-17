@@ -173,7 +173,7 @@ Page {
                      anchors.verticalCenter: parent.verticalCenter
 
                      font.pixelSize: Theme.fontSizeLarge
-                     text: globalMedia.duration !== 0 ? " / " : "Live!"
+                     text: globalMedia.duration !== 0 ? " / " : qsTr("Live!")
                  }
                  Label {
                      anchors.verticalCenter: parent.verticalCenter

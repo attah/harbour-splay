@@ -14,7 +14,7 @@ Page {
         header: SearchField {
             id: searchField
             width: parent.width
-            placeholderText: "Sök"
+            placeholderText: qsTr("Sök")
 
             onTextChanged: {
                 results.source = "https://api.sr.se/api/v2/episodes/search/?format=json&query="+text
@@ -32,7 +32,7 @@ Page {
             visible: programs.more_url !== ""
             MenuItem {
                 id: more
-                text: "Mer"
+                text: qsTr("Mer")
                 onClicked: programs.more()
             }
         }

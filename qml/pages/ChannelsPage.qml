@@ -26,14 +26,14 @@ Page {
         model: programs.model
         anchors.fill: parent
         header: PageHeader {
-            title: "Kanaler"
+            title: qsTr("Kanaler")
         }
 
         PushUpMenu {
             visible: programs.more_url !== ""
             MenuItem {
                 id: more
-                text: "Mer"
+                text: qsTr("Mer")
                 onClicked: programs.more()
             }
         }

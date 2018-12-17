@@ -31,7 +31,7 @@ Page {
             visible: programs.more_url !== ""
             MenuItem {
                 id: more
-                text: "Mer"
+                text: qsTr("Mer")
                 onClicked: programs.more()
             }
         }

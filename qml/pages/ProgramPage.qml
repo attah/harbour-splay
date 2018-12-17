@@ -34,7 +34,7 @@ Page {
             visible: episodes.more_url !== ""
             MenuItem {
                 id: more
-                text: "Mer"
+                text: qsTr("Mer")
                 onClicked: episodes.more()
             }
         }

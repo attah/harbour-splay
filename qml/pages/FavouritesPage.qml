@@ -46,7 +46,7 @@ Page {
             }
             menu: ContextMenu {
                 MenuItem {
-                    text: "Ta bort favoritmarkering"
+                    text: qsTr("Ta bort favoritmarkering")
                     onClicked: db.unsetFavourite(id)
                 }
             }
