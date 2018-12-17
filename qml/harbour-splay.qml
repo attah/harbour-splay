@@ -82,6 +82,21 @@ ApplicationWindow
         }
     }
 
+    Timer {
+        id: liveReset
+
+        interval: 5000; running: false; repeat: false
+        onTriggered: {if(globalMedia.playbackState === MediaPlayer.PausedState) {
+                          console.log("reset live position");
+                          globalMedia.stop();
+                          var tmp = globalMedia.source;
+                          globalMedia.source = "";
+                          globalMedia.source = tmp;
+                      }
+        }
+    }
+
+
 
     MediaPlayer {
         property string name
@@ -92,8 +107,6 @@ ApplicationWindow
         property int id
 
         id: globalMedia
-        autoLoad: true
-        onStatusChanged: {console.log("status",status); if( status === MediaPlayer.Loaded ) {play()}}
         onAvailabilityChanged: {console.log("avail", availability)}
         onError: {console.log("err", error);
                   if (error === MediaPlayer.NetworkError) {
@@ -103,8 +116,14 @@ ApplicationWindow
         }
         onPlaying: {
             playRetry.stop();
+            liveReset.stop();
         }
-
+        onPlaybackStateChanged: {
+            console.log("playbackstate", playbackState);
+            if (playbackState === MediaPlayer.PausedState && duration === 0) {
+                liveReset.start();
+            }
+        }
     }
 
 }

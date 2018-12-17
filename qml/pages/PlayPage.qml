@@ -24,6 +24,8 @@ Page {
                 globalMedia.title = title
                 globalMedia.imageurl = imageurl
                 globalMedia.id = id
+                globalMedia.description = description
+                globalMedia.play()
                 console.log("media updated", url, globalMedia.source)
             }
         }
