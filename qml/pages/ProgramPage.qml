@@ -72,7 +72,8 @@ Page {
                                 title: title,
                                 imageurl: imageurl,
                                 url: model.listenpodfile ? model.listenpodfile.url : model.broadcast.broadcastfiles[0].url,
-                                id: program.id,
+                                program_id: program.id,
+                                episode_id: id,
                                 downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,
                                 description: model.description});
             }

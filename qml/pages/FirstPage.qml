@@ -74,7 +74,8 @@ Page {
                         anchors.fill: parent
                         onClicked: {
                             pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-                                           {id: 0,
+                                           {program_id: 0,
+                                            episode_id: 0,
                                             name: "P1",
                                             imageurl: parent.source,
                                             url: "https://sverigesradio.se/topsy/direkt/srapi/132.mp3",
@@ -93,7 +94,8 @@ Page {
                         anchors.fill: parent
                         onClicked: {
                             pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-                                           {id: 0,
+                                           {program_id: 0,
+                                            episode_id: 0,
                                             name: "P2",
                                             imageurl: parent.source,
                                             url: "https://sverigesradio.se/topsy/direkt/srapi/163.mp3",
@@ -110,7 +112,8 @@ Page {
                         anchors.fill: parent
                         onClicked: {
                             pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-                                           {id: 0,
+                                           {program_id: 0,
+                                            episode_id: 0,
                                             name: "P3",
                                             imageurl: parent.source,
                                             url: "https://sverigesradio.se/topsy/direkt/srapi/164.mp3",
@@ -185,7 +188,8 @@ Page {
                     onClicked:  {
                         console.log(imageurl)
                         pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-                                       {id: model.program.id,
+                                       {program_id: model.program.id,
+                                        episode_id: model.id,
                                         name: program.name,
                                         title: title,
                                         imageurl: imageurl,

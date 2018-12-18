@@ -49,7 +49,8 @@ Page {
             }
             onClicked:  {
                 pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-                               {id: 0,
+                               {program_id: 0,
+                                episode_id: 0,
                                 name: name,
                                 title: tagline,
                                 imageurl: image,

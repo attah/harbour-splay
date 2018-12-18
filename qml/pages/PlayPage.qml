@@ -12,7 +12,9 @@ Page {
     property string url : now_playing ? globalMedia.source : ""
     property string downloadurl : now_playing ? globalMedia.downlaodurl : ""
     property string description: now_playing ? globalMedia.description : ""
-    property int id: now_playing ? globalMedia.id : ""
+    property int program_id: now_playing ? globalMedia.program_id : 0
+    property int episode_id: now_playing ? globalMedia.episode_id : 0
+
 
     SilicaFlickable {
         anchors.fill: parent
@@ -23,8 +25,10 @@ Page {
                 globalMedia.name = name
                 globalMedia.title = title
                 globalMedia.imageurl = imageurl
-                globalMedia.id = id
+                globalMedia.program_id = program_id
+                globalMedia.episode_id = episode_id
                 globalMedia.description = description
+                globalMedia.seek(db.getProgress(episode_id))
                 globalMedia.play()
                 console.log("media updated", url, globalMedia.source)
             }
@@ -115,7 +119,7 @@ Page {
 
                  IconButton {
                      id: downloadpod
-                     visible: id !== 0
+                     visible: program_id !== 0
                      icon.source: "image://theme/icon-m-cloud-download"
                      onClicked: {console.log(downloadurl)}
                      width: parent.width / 2
@@ -125,10 +129,10 @@ Page {
 
                  IconButton {
                      id: favourite
-                     visible: id !== 0
-                     property bool is_favourite: db.isFavourite(id)
+                     visible: program_id !== 0
+                     property bool is_favourite: db.isFavourite(program_id)
                      icon.source: is_favourite ? "image://theme/icon-m-favorite-selected" : "image://theme/icon-m-favorite"
-                     onClicked: { is_favourite ? db.unsetFavourite(id) : db.setFavourite(id, name); is_favourite = db.isFavourite(id)}
+                     onClicked: { is_favourite ? db.unsetFavourite(program_id) : db.setFavourite(program_id, name); is_favourite = db.isFavourite(program_id)}
                      width: parent.width / 2
                      anchors.verticalCenter: parent.verticalCenter
                  }
