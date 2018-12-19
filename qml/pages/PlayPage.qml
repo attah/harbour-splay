@@ -185,10 +185,10 @@ Page {
                      anchors.verticalCenter: parent.verticalCenter
 
                      id: durationLabel
-                     readonly property int minutes: Math.floor(globalMedia.duration / 60000)
-                     readonly property int seconds: Math.round((globalMedia.duration % 60000) / 1000)
-
-                     text: globalMedia.duration !== 0 ?  Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss")) : ""
+                     text: globalMedia.duration !== 0 ?  (globalMedia.duration >= 60*60*1000
+                                                          ? Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, globalMedia.duration), "hh:mm:ss")
+                                                          : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, globalMedia.duration), "mm:ss"))
+                                                      : ""
                  }
              }
 
