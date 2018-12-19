@@ -170,10 +170,10 @@ Page {
                      id: positionLabel
                      anchors.verticalCenter: parent.verticalCenter
 
-                     readonly property int minutes: Math.floor(globalMedia.position / 60000)
-                     readonly property int seconds: Math.round((globalMedia.position % 60000) / 1000)
-
-                     text: globalMedia.duration !== 0 ? Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss")) : ""
+                     text: globalMedia.duration !== 0 ?  (globalMedia.duration >= 60*60*1000
+                                                          ? Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, globalMedia.position), "hh:mm:ss")
+                                                          : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, globalMedia.position), "mm:ss"))
+                                                      : ""
                  }
                  Label {
                      anchors.verticalCenter: parent.verticalCenter

@@ -91,10 +91,6 @@
 <context>
     <name>PlayPage</name>
     <message>
-        <source>mm:ss</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Live!</source>
         <translation type="unfinished"></translation>
     </message>
