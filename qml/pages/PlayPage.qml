@@ -122,10 +122,10 @@ Page {
                      id: downloadpod
                      visible: program_id !== 0
                      icon.source: "image://theme/icon-m-cloud-download"
-                     onClicked: {console.log(downloadurl)}
+                     onClicked: {console.log(downloadurl); Qt.openUrlExternally(downloadurl)}
                      width: parent.width / 2
                      anchors.verticalCenter: parent.verticalCenter
-                     enabled: false // FIXME, enable when this does something \\ downloadurl !== "" ? true : false
+                     enabled: downloadurl !== "" ? true : false
                  }
 
                  IconButton {
