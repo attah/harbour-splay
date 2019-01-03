@@ -17,6 +17,7 @@ CONFIG += sailfishapp_qml
 DISTFILES += qml/harbour-splay.qml \
     qml/cover/CoverPage.qml \
     qml/pages/*.qml \
+    qml/*.wav \
     qml/pages/*.js\
     rpm/harbour-splay.changes.in \
     rpm/harbour-splay.changes.run.in \

@@ -92,6 +92,12 @@ ApplicationWindow
         }
     }
 
+    SoundEffect {
+        id: retrySound
+        source: "boop.wav"
+    }
+
+    Component.onCompleted: retrySound.play()
 
     Timer {
         id: playRetry
@@ -100,8 +106,11 @@ ApplicationWindow
 
         interval: 1000; running: false; repeat: true
         onTriggered: { console.log("retry playback");
+                       if(retry_cnt % 2 == 0) {
+                           retrySound.play();
+                       }
                        retry_cnt++;
-                       if(retry_cnt > 10) { stop() };
+                       if(retry_cnt > 20) { stop() };
                        globalMedia.play();
         }
     }
@@ -110,7 +119,7 @@ ApplicationWindow
         id: liveReset
 
         interval: 5000; running: false; repeat: false
-        onTriggered: {if(globalMedia.playbackState === MediaPlayer.PausedState) {
+        onTriggered: {if(globalMedia.playbackState !== MediaPlayer.PlayingState) {
                           console.log("reset live position");
                           globalMedia.stop();
                           var tmp = globalMedia.source;
@@ -189,7 +198,7 @@ ApplicationWindow
             console.log("playbackstate", playbackState);
             console.log("sp", position, duration);
 
-            if (playbackState === MediaPlayer.PausedState && duration === 0) {
+            if (playbackState !== MediaPlayer.PlayingState && duration === 0) {
                 liveReset.start();
             }
             if (playbackState !== MediaPlayer.PlayingState) {
