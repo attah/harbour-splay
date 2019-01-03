@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.6
 import Sailfish.Silica 1.0
+import Sailfish.Media 1.0
 import org.nemomobile.mpris 1.0
 import "pages"
 
@@ -148,7 +149,7 @@ ApplicationWindow
 
         onPauseRequested: globalMedia.pause()
         onPlayRequested: globalMedia.play()
-        onPlayPauseRequested: globalMedia.playbackState == MediaPlayer.PlayingState ? globalMedia.pause() : globalMedia.pause()
+        onPlayPauseRequested: globalMedia.togglePlaying()
         onNextRequested: globalMedia.goForward()
         onPreviousRequested: globalMedia.goBackward()
 
@@ -159,6 +160,42 @@ ApplicationWindow
             tmp[Mpris.metadataToString(Mpris.Title)] = name
             metadata = tmp
         }
+    }
+
+    MediaKey {
+        enabled: true
+        key: Qt.Key_MediaTogglePlayPause
+        onPressed: globalMedia.togglePlaying()
+    }
+    MediaKey {
+        enabled: true
+        key: Qt.Key_MediaPlay
+        onPressed: globalMedia.play()
+    }
+    MediaKey {
+        enabled: true
+        key: Qt.Key_MediaPause
+        onPressed: globalMedia.pause()
+    }
+    MediaKey {
+        enabled: true
+        key: Qt.Key_ToggleCallHangup
+        onPressed: globalMedia.togglePlaying()
+    }
+    MediaKey {
+        enabled: true
+        key: Qt.Key_MediaStop
+        onPressed: globalMedia.stop()
+    }
+    MediaKey {
+        enabled: true
+        key: Qt.Key_MediaNext
+        onPressed: globalMedia.goForward()
+    }
+    MediaKey {
+        enabled: true
+        key: Qt.Key_MediaPrevious
+        onPressed: globalMedia.goBackward()
     }
 
     MediaPlayer {
@@ -188,6 +225,15 @@ ApplicationWindow
 
         function goBackward() {
             seek(position - 10000 > 0 ? position - 10000 : 0)
+        }
+
+        function togglePlaying() {
+            if (playbackState == MediaPlayer.PlayingState) {
+                pause()
+            }
+            else {
+                play()
+            }
         }
 
         onPlaying: {

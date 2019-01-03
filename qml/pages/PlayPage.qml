@@ -208,7 +208,7 @@ Page {
                  IconButton {
                      id: play
                      icon.source: globalMedia.playbackState === 1 ? "image://theme/icon-l-pause" : "image://theme/icon-l-play"
-                     onClicked: globalMedia.playbackState === 1 ? globalMedia.pause() : globalMedia.play()
+                     onClicked: globalMedia.togglePlaying()
                      width: parent.width / 3
                      anchors.verticalCenter: parent.verticalCenter
                  }
