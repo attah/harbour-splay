@@ -80,6 +80,7 @@ Page {
                 id: descriptionLabel
                 visible: false
                 width: parent.width-2*Theme.paddingLarge
+                height: parent.width*0.8
                 x: Theme.paddingLarge
                 text: description
                 wrapMode: Text.WordWrap
@@ -97,13 +98,13 @@ Page {
 
                  MouseArea {
                     anchors.fill: parent
-                    onClicked: {coverimage.visible = false; descriptionLabel.visible = true}
+                    onClicked: {if(description !== "") {
+                                coverimage.visible = false;
+                                descriptionLabel.visible = true
+                               }
+                    }
                  }
              }
-
-
-
-
 
         }
          Column {
