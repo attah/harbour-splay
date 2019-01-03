@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.6
 import Sailfish.Silica 1.0
+import org.nemomobile.mpris 1.0
 import "pages"
 
 ApplicationWindow
@@ -119,9 +120,40 @@ ApplicationWindow
         }
     }
 
+    MprisPlayer {
 
+        id: mprisConnection
+        serviceName: "splay"
+        playbackStatus: globalMedia.playbackState == MediaPlayer.PlayingState ? Mpris.Playing : Mpris.Paused
+
+        identity: "Splay Controller"
+
+        canControl: true
+
+        canPause: true
+        canPlay: true
+        canGoNext: true
+        canGoPrevious: true
+
+        canSeek: false
+
+        onPauseRequested: globalMedia.pause()
+        onPlayRequested: globalMedia.play()
+        onPlayPauseRequested: globalMedia.playbackState == MediaPlayer.PlayingState ? globalMedia.pause() : globalMedia.pause()
+        onNextRequested: globalMedia.goForward()
+        onPreviousRequested: globalMedia.goBackward()
+
+        property string name
+        onNameChanged: setName()
+        function setName() {
+            var tmp = {}
+            tmp[Mpris.metadataToString(Mpris.Title)] = name
+            metadata = tmp
+        }
+    }
 
     MediaPlayer {
+        id: globalMedia
         property string name
         property string title
         property string imageurl
@@ -129,8 +161,10 @@ ApplicationWindow
         property string description
         property int program_id
         property int episode_id
+        onNameChanged: {
+            mprisConnection.name = name
+        }
 
-        id: globalMedia
         onAvailabilityChanged: {console.log("avail", availability)}
         onError: {console.log("err", error);
                   if (error === MediaPlayer.NetworkError) {
@@ -138,6 +172,15 @@ ApplicationWindow
                     playRetry.start();
                   }
         }
+
+        function goForward() {
+            seek(position + 10000 < duration ? position + 10000 : duration)
+        }
+
+        function goBackward() {
+            seek(position - 10000 > 0 ? position - 10000 : 0)
+        }
+
         onPlaying: {
             playRetry.stop();
             liveReset.stop();

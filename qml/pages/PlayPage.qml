@@ -198,7 +198,7 @@ Page {
                  IconButton {
                      id: previous
                      icon.source: "image://theme/icon-m-previous"
-                     onClicked: globalMedia.seek(globalMedia.position - 10000 > 0 ? globalMedia.position - 10000 : 0)
+                     onClicked: globalMedia.goBackward()
                      width: parent.width / 3
                      anchors.verticalCenter: parent.verticalCenter
                  }
@@ -215,7 +215,7 @@ Page {
                  IconButton {
                      id: next
                      icon.source: "image://theme/icon-m-next"
-                     onClicked: globalMedia.seek(globalMedia.position + 10000 < globalMedia.duration ? globalMedia.position + 10000 : globalMedia.duration)
+                     onClicked: globalMedia.goForward()
                      width: parent.width / 3
                      anchors.verticalCenter: parent.verticalCenter
                  }
