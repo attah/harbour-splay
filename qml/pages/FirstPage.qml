@@ -7,9 +7,9 @@ Page {
 
     property bool first_start: true
 
-    onStatusChanged: {
+    onVisibleChanged: {
         console.log("status", status);
-        if (status == PageStatus.Active && !first_start) {
+        if (visible && !first_start) {
             console.log("refräs");
             lastpublished.refresh();
         }

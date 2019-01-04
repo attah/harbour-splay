@@ -2,8 +2,6 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.6
 import Sailfish.Silica 1.0
-import Sailfish.Media 1.0
-import org.nemomobile.mpris 1.0
 import "pages"
 
 ApplicationWindow
@@ -98,8 +96,6 @@ ApplicationWindow
         source: "boop.wav"
     }
 
-    Component.onCompleted: retrySound.play()
-
     Timer {
         id: playRetry
 
@@ -130,74 +126,6 @@ ApplicationWindow
         }
     }
 
-    MprisPlayer {
-
-        id: mprisConnection
-        serviceName: "splay"
-        playbackStatus: globalMedia.playbackState == MediaPlayer.PlayingState ? Mpris.Playing : Mpris.Paused
-
-        identity: "Splay Controller"
-
-        canControl: true
-
-        canPause: true
-        canPlay: true
-        canGoNext: true
-        canGoPrevious: true
-
-        canSeek: false
-
-        onPauseRequested: globalMedia.pause()
-        onPlayRequested: globalMedia.play()
-        onPlayPauseRequested: globalMedia.togglePlaying()
-        onNextRequested: globalMedia.goForward()
-        onPreviousRequested: globalMedia.goBackward()
-
-        property string name
-        onNameChanged: setName()
-        function setName() {
-            var tmp = {}
-            tmp[Mpris.metadataToString(Mpris.Title)] = name
-            metadata = tmp
-        }
-    }
-
-    MediaKey {
-        enabled: true
-        key: Qt.Key_MediaTogglePlayPause
-        onPressed: globalMedia.togglePlaying()
-    }
-    MediaKey {
-        enabled: true
-        key: Qt.Key_MediaPlay
-        onPressed: globalMedia.play()
-    }
-    MediaKey {
-        enabled: true
-        key: Qt.Key_MediaPause
-        onPressed: globalMedia.pause()
-    }
-    MediaKey {
-        enabled: true
-        key: Qt.Key_ToggleCallHangup
-        onPressed: globalMedia.togglePlaying()
-    }
-    MediaKey {
-        enabled: true
-        key: Qt.Key_MediaStop
-        onPressed: globalMedia.stop()
-    }
-    MediaKey {
-        enabled: true
-        key: Qt.Key_MediaNext
-        onPressed: globalMedia.goForward()
-    }
-    MediaKey {
-        enabled: true
-        key: Qt.Key_MediaPrevious
-        onPressed: globalMedia.goBackward()
-    }
-
     MediaPlayer {
         id: globalMedia
         property string name
@@ -207,9 +135,7 @@ ApplicationWindow
         property string description
         property int program_id
         property int episode_id
-        onNameChanged: {
-            mprisConnection.name = name
-        }
+        property bool inited: false
 
         onAvailabilityChanged: {console.log("avail", availability)}
         onError: {console.log("err", error);
@@ -237,6 +163,16 @@ ApplicationWindow
         }
 
         onPlaying: {
+            if (!inited) {
+                inited = true;
+                console.log("go!");
+                var thingy = Qt.createComponent("Controls.notqml");
+                if (thingy.status == Component.Ready) {
+                    console.log("gone");
+                    thingy.createObject(appWin, {name: name});
+                    console.log("gun");
+                }
+            }
             playRetry.stop();
             liveReset.stop();
         }

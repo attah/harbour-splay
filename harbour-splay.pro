@@ -14,7 +14,8 @@ TARGET = harbour-splay
 
 CONFIG += sailfishapp_qml
 
-DISTFILES += qml/harbour-splay.qml \
+DISTFILES += qml/*.qml \
+    qml/*.notqml \
     qml/cover/CoverPage.qml \
     qml/pages/*.qml \
     qml/*.wav \
