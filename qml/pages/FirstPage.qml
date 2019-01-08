@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
-    allowedOrientations: Orientation.Portrait
+    allowedOrientations: Orientation.All
 
     property bool first_start: true
 
@@ -38,23 +38,20 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("SearchPage.qml"))
             }
         }
-
-        // Tell SilicaFlickable the height of its content.
-        contentHeight: column.height
+        PageHeader {
+            id: header
+            title: qsTr("S'Play")
+        }
 
         // Place our content in a Column.  The PageHeader is always placed at the top
         // of the page, followed by our content.
         Column {
-            id: column
-            anchors.fill: parent
+            id: column1
+            anchors.top: header.bottom
+            anchors.left: parent.left
 
-            width: page.width
+            width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
             spacing: Theme.paddingLarge
-            PageHeader {
-                title: qsTr("S'Play")
-            }
-
-
 
             Label {
                 text: qsTr("Livekanaler")
@@ -151,6 +148,15 @@ Page {
                 color: Theme.secondaryHighlightColor
                 onClicked: {  pageStack.push(Qt.resolvedUrl("CategoriesPage.qml")) }
             }
+        }
+        Column {
+            id: column2
+
+            anchors.top: page.orientation === Orientation.Portrait ? column1.bottom : header.bottom
+            anchors.right: parent.right
+
+            width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
+            spacing: Theme.paddingLarge
 
             Label {
                 text: qsTr("Senast publicerade program")
@@ -166,6 +172,7 @@ Page {
                 height: parent.width*0.25
                 width: parent.width
                 orientation: ListView.Horizontal
+                clip: true
 
 
                 model: lastpublished.model

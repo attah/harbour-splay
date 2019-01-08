@@ -60,7 +60,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>S&apos;Play</source>
+        <source>Livekanaler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -76,15 +76,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Senast publicerade program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Favoriter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Livekanaler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Senast publicerade program</source>
+        <source>S&apos;Play</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

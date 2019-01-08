@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
-    allowedOrientations: Orientation.Portrait
+    allowedOrientations: Orientation.All
 
     property bool now_playing: false
     property string name : now_playing ? globalMedia.name : ""
@@ -33,14 +33,19 @@ Page {
                 console.log("media updated", url, globalMedia.source)
             }
         }
+        PageHeader {
+            id: header
+            title: name
+        }
+
 
          Column {
              id: column
              spacing: Theme.paddingLarge
-             width: parent.width
-             PageHeader {
-                 title: name
-             }
+             width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
+             anchors.top: header.bottom
+             anchors.left: parent.left
+
 
              Label {
                  id: title_label
@@ -53,23 +58,25 @@ Page {
 
                  font.pixelSize: Theme.fontSizeSmall
 
-                 x: right_position
+                 x: page.orientation === Orientation.Portrait ? dyn_x : right_position
+                 property int dyn_x: right_position-1
                  Component.onCompleted: {
                      if (title_label.width > parent.width) {
                          going_left = true
-                         x = left_position
+                         dyn_x = left_position
                      }
                  }
-                 Behavior on x {
+                 Behavior on dyn_x {
+                     enabled: page.orientation === Orientation.Portrait
                      NumberAnimation { duration: 33 * title_label.scroll_distance }
                  }
                  onXChanged: {
-                     if (!going_left && x === right_position) {
-                         x = left_position;
+                     if (!going_left && dyn_x === right_position) {
+                         dyn_x = left_position;
                          going_left = true;
                      }
-                     else if (going_left  && x === left_position) {
-                         x = right_position;
+                     else if (going_left  && dyn_x === left_position) {
+                         dyn_x = right_position;
                          going_left = false;
                      }
                  }
@@ -110,8 +117,9 @@ Page {
          Column {
              id: column2
              spacing: Theme.paddingLarge
-             width: parent.width
+             width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
              anchors.bottom: parent.bottom
+             anchors.right: parent.right
              anchors.bottomMargin: 2*Theme.paddingLarge
 
              Row {
