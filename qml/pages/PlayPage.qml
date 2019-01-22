@@ -21,6 +21,7 @@ Page {
 
         Component.onCompleted: {
             if(url != globalMedia.source) {
+                globalMedia.stop()
                 globalMedia.source = url
                 globalMedia.name = name
                 globalMedia.title = title

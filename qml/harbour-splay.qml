@@ -137,6 +137,8 @@ ApplicationWindow
         property int episode_id
         property bool inited: false
 
+        autoLoad: false //to make liveReset work?
+
         onAvailabilityChanged: {console.log("avail", availability)}
         onError: {console.log("err", error);
                   if (error === MediaPlayer.NetworkError) {

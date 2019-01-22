@@ -1,11 +1,11 @@
 Name: harbour-splay
 Summary: S'Play
-Version: 0.1
+Version: 0.3
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
 Group: Qt/Qt
-URL: http://example.org/
+URL: https://github.com/attah/harbour-splay
 BuildArch: noarch
 License: LICENSE
 # This must be generated before uploading a package to a remote build service.
@@ -13,7 +13,7 @@ License: LICENSE
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
-  Short description of my Sailfish OS Application
+  S'Play - app for streaming broadcasts and podcasts from  Sveriges Radio (SR)
 Configure: none
 # The qtc5 builder inserts macros to allow QtCreator to have fine
 # control over qmake/make execution

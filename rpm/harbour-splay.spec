@@ -13,12 +13,12 @@ Name:       harbour-splay
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    S'Play
-Version:    0.2.2
+Version:    0.3
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
 BuildArch:  noarch
-URL:        http://example.org/
+URL:        https://github.com/attah/harbour-splay
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-splay.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
@@ -30,7 +30,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
 
 %description
-Short description of my Sailfish OS Application
+S'Play - app for streaming broadcasts and podcasts from  Sveriges Radio (SR)
 
 
 %prep
