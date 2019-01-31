@@ -119,9 +119,11 @@ ApplicationWindow
         onTriggered: {if(globalMedia.playbackState !== MediaPlayer.PlayingState) {
                           console.log("reset live position");
                           globalMedia.stop();
+                          globalMedia.autoLoad = false; //don't preload
                           var tmp = globalMedia.source;
                           globalMedia.source = "";
                           globalMedia.source = tmp;
+                          globalMedia.autoLoad = true;
                       }
         }
     }
@@ -137,7 +139,7 @@ ApplicationWindow
         property int episode_id
         property bool inited: false
 
-        autoLoad: false //to make liveReset work?
+        autoLoad: true
 
         onAvailabilityChanged: {console.log("avail", availability)}
         onError: {console.log("err", error);
