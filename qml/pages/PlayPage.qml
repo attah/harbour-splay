@@ -152,25 +152,17 @@ Page {
                  id: progressSlider
 
                  visible: globalMedia.duration !== 0
+                 minimumValue: 0
                  maximumValue: globalMedia.duration
-                 property bool sync: false
                  width: parent.width
                  handleVisible: true
 
+                 value: globalMedia.position
 
-                 onValueChanged: {
-                     if (!sync)
-                         globalMedia.seek(value)
+                 onSliderValueChanged: {
+                         down && globalMedia.seek(sliderValue)
                  }
 
-                 Connections {
-                     target: globalMedia
-                     onPositionChanged: {
-                         progressSlider.sync = true
-                         progressSlider.value = globalMedia.position
-                         progressSlider.sync = false
-                     }
-                 }
              }
 
              Row {
