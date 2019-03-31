@@ -127,7 +127,11 @@ Page {
                         anchors.bottom: parent.bottom
                         x: Theme.paddingMedium
                     }
-                    highlighted: true
+                    Rectangle {
+                        anchors.fill: parent
+                        color: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
+                    }
+
                     onClicked: {  pageStack.push(Qt.resolvedUrl("ChannelsPage.qml")) }
                 }
             }
