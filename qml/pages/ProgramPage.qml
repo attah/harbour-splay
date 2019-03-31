@@ -24,8 +24,14 @@ Page {
             source: url
             query: "$.episodes"
             more_query: "$.pagination.nextpage"
+
+            property bool initialized: false
             Component.onCompleted: {
-                appWin.reactivated.connect(episodes.refresh())
+                initialized = true
+            }
+            onVisibleChanged: {
+                if (visible && initialized)
+                    refresh()
             }
         }
 
