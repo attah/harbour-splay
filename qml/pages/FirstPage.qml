@@ -51,11 +51,11 @@ Page {
             anchors.left: parent.left
 
             width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
-            spacing: Theme.paddingLarge
 
             Label {
                 text: qsTr("Livekanaler")
                 x: Theme.paddingMedium
+                bottomPadding: Theme.paddingSmall
             }
             Row {
 //                anchors.horizontalCenter: parent.horizontalCenter
@@ -132,20 +132,14 @@ Page {
                 }
             }
 
-            Button {
-                x: Theme.horizontalPageMargin
+            BarButton {
                 text: qsTr("Senaste nyheterna")
-                color: Theme.secondaryHighlightColor
                 onClicked: {pageStack.push(Qt.resolvedUrl("ProgramPage.qml"),
                                            {url:  "https://api.sr.se/api/v2/news/episodes?format=json",
                                             program_name: text})}
-
-
             }
-            Button {
-                x: Theme.horizontalPageMargin
+            BarButton {
                 text: qsTr("Kategorier")
-                color: Theme.secondaryHighlightColor
                 onClicked: {  pageStack.push(Qt.resolvedUrl("CategoriesPage.qml")) }
             }
         }
@@ -153,14 +147,15 @@ Page {
             id: column2
 
             anchors.top: page.orientation === Orientation.Portrait ? column1.bottom : header.bottom
+            anchors.topMargin: page.orientation === Orientation.Portrait ? Theme.paddingLarge : 0
             anchors.right: parent.right
 
             width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
-            spacing: Theme.paddingLarge
 
             Label {
                 text: qsTr("Senast publicerade program")
                 x: Theme.paddingMedium
+                bottomPadding: Theme.paddingSmall
             }
             JSONListModel {
                 id: lastpublished
@@ -206,10 +201,8 @@ Page {
                 }
                 HorizontalScrollDecorator { flickable: lastPublishedList }
             }
-            Button {
-                x: Theme.horizontalPageMargin
+            BarButton {
                 text: qsTr("Favoriter")
-                color: Theme.secondaryHighlightColor
                 onClicked: {  pageStack.push(Qt.resolvedUrl("FavouritesPage.qml")) }
             }
         }
