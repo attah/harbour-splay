@@ -46,24 +46,47 @@ Page {
         }
         delegate: BackgroundItem {
             id: delegate
+            height: detailsColumn.implicitHeight+Theme.paddingSmall
             Column {
-                anchors.verticalCenter: parent.verticalCenter
+                id: detailsColumn
+                width: parent.width
                 Label {
                     x: Theme.horizontalPageMargin
+                    width: parent.width-2*Theme.horizontalPageMargin
                     text: title
                     color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    wrapMode: "WordWrap"
                 }
                 Label {
+                    x: Theme.horizontalPageMargin
+                    Component.onCompleted:  {
+                        text = (getFile().duration >= 60*60
+                                ? Qt.formatTime(new Date(getFile().duration*1000), "hh:mm:ss")
+                                : Qt.formatTime(new Date(getFile().duration*1000), "mm:ss"))
+                    }
+
+                    text: ""
+                    color: Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeTiny
+                }
+
+                Label {
+                    x: Theme.horizontalPageMargin
+                    width: parent.width*2/5
                     Component.onCompleted:  {
                         text = new Date(parseInt(publishdateutc.substr(6))).toLocaleString(Locale);
                     }
 
-                    x: Theme.horizontalPageMargin
                     text: ""
+                    color: Theme.secondaryColor
                     font.pixelSize: Theme.fontSizeTiny
                 }
+
             }
 
+            function getFile() {
+                return model.listenpodfile ? model.listenpodfile : model.broadcast.broadcastfiles[0]
+            }
 
             onClicked:  {
                 //console.log()
@@ -71,7 +94,7 @@ Page {
                                {name: program.name,
                                 title: title,
                                 imageurl: imageurl,
-                                url: model.listenpodfile ? model.listenpodfile.url : model.broadcast.broadcastfiles[0].url,
+                                url: getFile().url,
                                 program_id: program.id,
                                 episode_id: id,
                                 downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,

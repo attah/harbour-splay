@@ -188,8 +188,8 @@ Page {
 
                      id: durationLabel
                      text: globalMedia.duration !== 0 ?  (globalMedia.duration >= 60*60*1000
-                                                          ? Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, globalMedia.duration), "hh:mm:ss")
-                                                          : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, globalMedia.duration), "mm:ss"))
+                                                          ? Qt.formatTime(new Date(globalMedia.duration), "hh:mm:ss")
+                                                          : Qt.formatTime(new Date(globalMedia.duration), "mm:ss"))
                                                       : ""
                  }
              }
