@@ -87,6 +87,10 @@
         <source>S&apos;Play</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>VMA (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlayPage</name>
@@ -118,6 +122,17 @@
     </message>
     <message>
         <source>Gå till program</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VmaPage</name>
+    <message>
+        <source>VMA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tomt</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

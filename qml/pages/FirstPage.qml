@@ -209,6 +209,25 @@ Page {
                 text: qsTr("Favoriter")
                 onClicked: {  pageStack.push(Qt.resolvedUrl("FavouritesPage.qml")) }
             }
+            BarButton {
+                text: qsTr("VMA (%1)").arg(vma_messages.count)
+                attention: vma_messages.count != 0
+                JSONListModel {
+                    id: vma_messages
+                    source: "http://api.sr.se/api/v2/vma?format=json&pagination=none"
+                    query: "$.messages"
+
+                    property bool initialized: false
+                    Component.onCompleted: {
+                        initialized = true
+                    }
+                    onVisibleChanged: {
+                        if (visible && initialized)
+                            refresh()
+                    }
+                }
+                onClicked: {  pageStack.push(Qt.resolvedUrl("VmaPage.qml"), {model: vma_messages}) }
+            }
         }
     }
 }
