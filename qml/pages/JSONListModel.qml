@@ -22,7 +22,7 @@ Item {
 
     onSourceChanged: {more_url = ""; get(source)}
     onJsonChanged: updateJSONModel()
-    onQueryChanged: updateJSONModel()
+    // onQueryChanged: updateJSONModel() borked by pagination logic
     onMore: get(more_url)
 
     function get(what) {
@@ -39,6 +39,7 @@ Item {
 
     function refresh() {
         console.log("refresh");
+        more_url = ""; //reset pagination
         get(source);
     }
 
