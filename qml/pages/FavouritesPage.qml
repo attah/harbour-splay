@@ -24,8 +24,9 @@ Page {
         anchors.fill: parent
 
         header: PageHeader {
-            title: category_name
+            title: qsTr("Favoriter")
         }
+
         delegate: ListItem {
             id: delegate
 
