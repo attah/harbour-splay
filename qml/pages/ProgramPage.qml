@@ -67,8 +67,8 @@ Page {
                     x: Theme.horizontalPageMargin
                     Component.onCompleted:  {
                         text = (getFile().duration >= 60*60
-                                ? Qt.formatTime(new Date(getFile().duration*1000), "hh:mm:ss")
-                                : Qt.formatTime(new Date(getFile().duration*1000), "mm:ss"))
+                                ? Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, getFile().duration*1000), "hh:mm:ss")
+                                : Qt.formatTime(new Date(0, 0, 0, 0, 0, 0, getFile().duration*1000), "mm:ss"))
                     }
 
                     text: ""

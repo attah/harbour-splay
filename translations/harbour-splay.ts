@@ -48,6 +48,10 @@
         <source>Ta bort favoritmarkering</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Favoriter</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FirstPage</name>
