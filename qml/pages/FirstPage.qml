@@ -226,7 +226,7 @@ Page {
                             refresh()
                     }
                 }
-                onClicked: {  pageStack.push(Qt.resolvedUrl("VmaPage.qml"), {model: vma_messages}) }
+                onClicked: {  pageStack.push(Qt.resolvedUrl("VmaPage.qml"), {model: vma_messages.model}) }
             }
         }
     }

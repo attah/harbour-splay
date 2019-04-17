@@ -13,14 +13,6 @@ Page {
             title: qsTr("VMA")
         }
 
-        property bool initialized: false
-        Component.onCompleted: {
-            initialized = true
-        }
-        onVisibleChanged: {
-            if (visible && initialized)
-                model.refresh()
-        }
 
         delegate: BackgroundItem {
             id: delegate
@@ -32,7 +24,7 @@ Page {
                     x: Theme.horizontalPageMargin
                     width: parent.width-2*Theme.horizontalPageMargin
                     text: title
-                    color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    color: delegate.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     wrapMode: "WordWrap"
                 }
                 Label {
@@ -57,22 +49,9 @@ Page {
 
             }
 
-//            function getFile() {
-//                return model.listenpodfile ? model.listenpodfile : model.broadcast.broadcastfiles[0]
-//            }
-
-//            onClicked:  {
-//                //console.log()
-//                pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-//                               {name: program.name,
-//                                title: title,
-//                                imageurl: imageurl,
-//                                url: getFile().url,
-//                                program_id: program.id,
-//                                episode_id: id,
-//                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,
-//                                description: model.description});
-//            }
+            onClicked:  {
+                Qt.openUrlExternally(url)
+            }
         }
         VerticalScrollDecorator {}
         Label {
