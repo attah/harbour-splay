@@ -4,15 +4,19 @@ import Sailfish.Silica 1.0
 Page {
     id: page
     allowedOrientations: Orientation.All
-    property alias model: listView.model
+    property var vma_model
 
     SilicaListView {
         id: listView
+        model: vma_model.model
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("VMA")
         }
-
+        onVisibleChanged: {
+            if (visible && vma_model.initialized)
+                vma_model.refresh()
+        }
 
         delegate: BackgroundItem {
             id: delegate
@@ -58,7 +62,7 @@ Page {
             text: qsTr("Tomt")
             font.pixelSize: Theme.fontSizeExtraLarge
             color: Theme.rgba(Theme.primaryColor, 0.4)
-            visible: model.count === 0
+            visible: vma_model.count === 0
             anchors.centerIn: parent
         }
     }

@@ -214,6 +214,7 @@ Page {
                 attention: vma_messages.count != 0
                 JSONListModel {
                     id: vma_messages
+//                    source: "https://raw.githubusercontent.com/attah/sr-samples/master/vma.json"
                     source: "http://api.sr.se/api/v2/vma?format=json&pagination=none"
                     query: "$.messages"
 
@@ -223,10 +224,11 @@ Page {
                     }
                     onVisibleChanged: {
                         if (visible && initialized)
+                            console.log("yo")
                             refresh()
                     }
                 }
-                onClicked: {  pageStack.push(Qt.resolvedUrl("VmaPage.qml"), {model: vma_messages.model}) }
+                onClicked: {  pageStack.push(Qt.resolvedUrl("VmaPage.qml"), {vma_model: vma_messages}) }
             }
         }
     }
