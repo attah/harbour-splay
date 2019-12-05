@@ -52,6 +52,10 @@ Page {
 
             width: page.orientation === Orientation.Portrait ? parent.width : parent.width/2
 
+            LongPhonePadding {
+                padding: Screen.height*0.1
+            }
+
             Label {
                 text: qsTr("Livekanaler")
                 x: Theme.paddingMedium

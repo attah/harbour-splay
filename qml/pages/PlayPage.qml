@@ -222,6 +222,10 @@ Page {
                      anchors.verticalCenter: parent.verticalCenter
                  }
              }
+             LongPhonePadding {
+                 padding: Screen.height*0.15
+             }
+
          }
     }
 }
