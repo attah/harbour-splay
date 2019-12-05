@@ -33,7 +33,7 @@ Page {
             MenuItem {
                 id: more
                 text: qsTr("Mer")
-                onClicked: programs.more()
+                onClicked: results.more()
             }
         }
 
