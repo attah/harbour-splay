@@ -100,8 +100,8 @@ Page {
              Image {
                  id: coverimage
                  source: imageurl
-                 width: parent.width*0.8
-                 height: parent.width*0.8
+                 width: Math.min(page.width*0.8, page.height*0.7)
+                 height: width
                  anchors.horizontalCenter: parent.horizontalCenter
 
                  MouseArea {
