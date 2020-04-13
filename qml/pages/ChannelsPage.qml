@@ -38,26 +38,16 @@ Page {
             }
         }
 
-        delegate: BackgroundItem {
-            id: delegate
+        delegate: ChannelItem {
+            height: Theme.itemSizeLarge
+            width: parent.width
 
-            Label {
-                x: Theme.horizontalPageMargin
-                text: name
-                anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
-            }
-            onClicked:  {
-                pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
-                               {program_id: 0,
-                                episode_id: 0,
-                                name: name,
-                                title: tagline,
-                                imageurl: image,
-                                url: liveaudio.url,
-                                downloadurl: ""});
-            }
+            imageUrl: image
+            channelId: id
+            channelName: name
+
         }
+
         VerticalScrollDecorator {}
     }
 

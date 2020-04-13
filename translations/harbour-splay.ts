@@ -68,14 +68,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fler...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Senaste nyheterna</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Kategorier</source>
         <translation type="unfinished"></translation>
     </message>
@@ -93,6 +85,10 @@
     </message>
     <message>
         <source>VMA (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alla kanaler</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

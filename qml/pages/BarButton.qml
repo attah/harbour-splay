@@ -3,7 +3,6 @@ import Sailfish.Silica 1.0
 
 BackgroundItem {
     id: barButton
-    height: implicitHeight+2*Theme.paddingMedium
 
     property alias text: label.text
     property bool attention: false
