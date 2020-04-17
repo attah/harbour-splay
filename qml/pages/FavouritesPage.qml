@@ -42,7 +42,8 @@ Page {
                 console.log("pushing program", id)
                 pageStack.push(Qt.resolvedUrl("ProgramPage.qml"),
                                {url:  "http://api.sr.se/api/v2/episodes/index?format=json&size=20&programid="+id,
-                                program_name: name});
+                                program_name: name,
+                                program_id: id});
 
             }
             menu: ContextMenu {

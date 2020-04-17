@@ -7,6 +7,7 @@ Page {
 
     property string url
     property string program_name
+    property int program_id: 0
 
     SilicaListView {
         id: listView
@@ -48,7 +49,26 @@ Page {
         model: episodes.model
         anchors.fill: parent
         header: PageHeader {
+            id: pageheader
             title: program_name
+            description: " " //to get some extra space
+
+            IconButton {
+                id: favourite
+                parent: pageheader.extraContent
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.paddingMedium
+
+                Component.onCompleted: {
+                    pageheader.extraContent.anchors.right = pageheader.right
+                }
+
+                visible: program_id != 0
+                property bool is_favourite: db.isFavourite(program_id)
+                icon.source: is_favourite ? "image://theme/icon-m-favorite-selected" : "image://theme/icon-m-favorite"
+                onClicked: { is_favourite ? db.unsetFavourite(program_id) : db.setFavourite(program_id, name); is_favourite = db.isFavourite(program_id)}
+            }
+
         }
         delegate: BackgroundItem {
             id: delegate

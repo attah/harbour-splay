@@ -79,7 +79,8 @@ Page {
                     text: qsTr("Gå till program")
                     onClicked: pageStack.push(Qt.resolvedUrl("ProgramPage.qml"),
                                               {url:  "https://api.sr.se/api/v2/episodes/index?format=json&size=20&programid="+program.id,
-                                               program_name: program.name});
+                                               program_name: program.name,
+                                               program_id: program.id});
                 }
             }
         }
