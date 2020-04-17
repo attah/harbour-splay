@@ -8,37 +8,22 @@ BackgroundItem {
     property string channelName
     property var rightnow
     property var nextChange: 0
-    property bool initialized: false
+    property int initialized: 0
 
     onRightnowChanged: {
-        var doUpdate = false
+        var now = new Date();
+        nextChange = new Date(now.valueOf()+60*1000);
 
         if(rightnow.channel.nextscheduledepisode)
         {
             nextChange = new Date(parseInt(rightnow.channel.nextscheduledepisode.starttimeutc.substr(6)));
             nextPlaying.text = Qt.formatTime(nextChange, "hh:mm: ")+rightnow.channel.nextscheduledepisode.title
-            doUpdate = true
-        }
-        else
-        {
-            var now = new Date();
-            nextChange = new Date(now.valueOf()+60*1000);
         }
 
         if(rightnow.channel.currentscheduledepisode)
         {
             nowPlaying.text = rightnow.channel.currentscheduledepisode.title
-            doUpdate = true
         }
-
-
-        if(initialized && doUpdate)
-        {
-            nextPlaying.opacity = 0.0
-            nowPlaying.opacity = 0.0
-            rotateInAnimation.start()
-        }
-        initialized = true
     }
 
     Timer {
@@ -83,6 +68,17 @@ BackgroundItem {
         anchors.verticalCenter: parent.top
         anchors.verticalCenterOffset: channelItem.height*1/3
         truncationMode: TruncationMode.Fade
+
+        onTextChanged: {
+            if(initialized>1)
+            {
+                nextPlaying.opacity = 0.0
+                nowPlaying.opacity = 0.0
+                rotateInAnimation.start()
+            }
+            initialized++
+        }
+
     }
     Label {
         id: nextPlaying

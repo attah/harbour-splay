@@ -7,20 +7,9 @@ Page {
 
     property int divider: (Screen.height > 2*Screen.width)===(page.orientation===Orientation.Portrait) ? 4 : 5
 
-    onVisibleChanged: {
-        console.log("status", status);
-        if (visible) {
-            console.log("refräs");
-            lastpublished.refresh();
-        }
-    }
-
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
-        Component.onCompleted: {
-            console.log("src", globalMedia.source)
-        }
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
@@ -110,6 +99,16 @@ Page {
                 id: lastpublished
                 source: "https://api.sr.se/api/v2/lastpublished?format=json&pagination=false"
                 query: "$.shows"
+
+                property bool initialized: false
+                onVisibleChanged: {
+                    if (visible)
+                    {
+                        if(initialized)
+                            refresh()
+                        initialized = true
+                    }
+                }
             }
             SilicaListView {
                 id: lastPublishedList
@@ -170,17 +169,17 @@ Page {
                 JSONListModel {
                     id: vma_messages
 //                    source: "https://raw.githubusercontent.com/attah/sr-samples/master/vma.json"
-                    source: "http://api.sr.se/api/v2/vma?format=json&pagination=none"
+                    source: "https://api.sr.se/api/v2/vma?format=json&pagination=none"
                     query: "$.messages"
 
                     property bool initialized: false
-                    Component.onCompleted: {
-                        initialized = true
-                    }
                     onVisibleChanged: {
-                        if (visible && initialized)
-                            console.log("yo")
-                            refresh()
+                        if (visible)
+                        {
+                            if(initialized)
+                                refresh()
+                            initialized = true
+                        }
                     }
                 }
                 onClicked: {  pageStack.push(Qt.resolvedUrl("VmaPage.qml"), {vma_model: vma_messages}) }
