@@ -15,6 +15,7 @@ Page {
     property int program_id: now_playing ? globalMedia.program_id : 0
     property int episode_id: now_playing ? globalMedia.episode_id : 0
 
+    property bool do_play: now_playing ? false : true
 
     SilicaFlickable {
         anchors.fill: parent
@@ -30,10 +31,13 @@ Page {
                 globalMedia.episode_id = episode_id
                 globalMedia.description = description
                 globalMedia.seek(db.getProgress(episode_id))
-                globalMedia.play()
                 console.log("media updated", url, globalMedia.source)
             }
+            if(do_play) {
+                globalMedia.play()
+            }
         }
+
         PageHeader {
             id: header
             title: name
