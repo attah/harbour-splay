@@ -19,6 +19,11 @@ Page {
             onTextChanged: {
                 results.source = "https://api.sr.se/api/v2/episodes/search/?format=json&query="+text
             }
+
+            Component.onCompleted: {
+                console.log("foc!")
+                searchField.forceActiveFocus()
+            }
         }
 
         JSONListModel {
@@ -29,7 +34,7 @@ Page {
 
 
         PushUpMenu {
-            visible: programs.more_url !== ""
+            visible: results.more_url !== ""
             MenuItem {
                 id: more
                 text: qsTr("Mer")
