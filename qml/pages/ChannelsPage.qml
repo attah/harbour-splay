@@ -18,9 +18,8 @@ Page {
 
         JSONListModel {
             id: programs
-            source: "https://api.sr.se/api/v2/channels/?format=json&size=20"
+            source: "https://api.sr.se/api/v2/channels/?format=json&pagination=false"
             query: "$.channels"
-            more_query: "$.pagination.nextpage"
         }
 
         model: programs.model
