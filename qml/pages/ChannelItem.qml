@@ -6,23 +6,32 @@ BackgroundItem {
     property string imageUrl
     property int channelId
     property string channelName
-    property var rightnow
-    property var nextChange: 0
-    property int initialized: 0
+    property var rightnow: timekeeper.rightnow[channelId]
 
     onRightnowChanged: {
-        var now = new Date();
-        nextChange = new Date(now.valueOf()+60*1000);
-
-        if(rightnow.channel.nextscheduledepisode)
+        if (!rightnow)
         {
-            nextChange = new Date(parseInt(rightnow.channel.nextscheduledepisode.starttimeutc.substr(6)));
-            nextPlaying.text = Qt.formatTime(nextChange, "hh:mm: ")+rightnow.channel.nextscheduledepisode.title
+            nowPlaying.text = channelName
+            return
         }
+
+        var now = new Date();
+        timekeeper.endtimes[channelId] = new Date(now.valueOf()+60*1000);
+        timekeeper.rightnow[channelId] = rightnow
 
         if(rightnow.channel.currentscheduledepisode)
         {
             nowPlaying.text = rightnow.channel.currentscheduledepisode.title
+        }
+        else
+        {
+            nowPlaying.text = channelName
+        }
+
+        if(rightnow.channel.nextscheduledepisode)
+        {
+            timekeeper.endtimes[channelId] = new Date(parseInt(rightnow.channel.nextscheduledepisode.starttimeutc.substr(6)));
+            nextPlaying.text = Qt.formatTime(timekeeper.endtimes[channelId], "hh:mm: ")+rightnow.channel.nextscheduledepisode.title
         }
     }
 
@@ -33,6 +42,8 @@ BackgroundItem {
         repeat: true
         onTriggered: {
             var now = new Date();
+            var nextChange = timekeeper.endtimes[channelId] ? timekeeper.endtimes[channelId] : 0
+            console.log("Timer", now, nextChange)
             if (now > nextChange)
             {
                 getRightnow();
@@ -61,24 +72,12 @@ BackgroundItem {
     }
     Label {
         id: nowPlaying
-        text: channelName
         anchors.left: channelImage.right
         anchors.leftMargin: Theme.paddingMedium
         anchors.right: parent.right
         anchors.verticalCenter: parent.top
         anchors.verticalCenterOffset: channelItem.height*1/3
         truncationMode: TruncationMode.Fade
-
-        onTextChanged: {
-            if(initialized>1)
-            {
-                nextPlaying.opacity = 0.0
-                nowPlaying.opacity = 0.0
-                rotateInAnimation.start()
-            }
-            initialized++
-        }
-
     }
     Label {
         id: nextPlaying
@@ -92,23 +91,12 @@ BackgroundItem {
         truncationMode: TruncationMode.Fade
     }
 
-
-    ParallelAnimation {
-        id: rotateInAnimation
-
-        NumberAnimation { target: nowPlaying.anchors; property: "verticalCenterOffset"; from: channelItem.height*2/3; to: channelItem.height*1/3; duration: 666 }
-//        NumberAnimation { target: nowPlaying.font; property: "pixelSize"; from: Theme.fontSizeExtraSmall; to: Theme.fontSizeSmall; duration: 666 }
-        NumberAnimation { target: nowPlaying; property: "opacity"; from: 0.0; to: 1.0; duration: 666 }
-        NumberAnimation { target: nextPlaying.anchors; property: "verticalCenterOffset"; from: channelItem.height*4/5; to: channelItem.height*2/3; duration: 666 }
-        NumberAnimation { target: nextPlaying; property: "opacity"; from: 0.0; to: 1.0; duration: 666 }
-
-    }
-
     function getRightnow() {
 
         var xhr = new XMLHttpRequest;
         xhr.open("GET", "http://api.sr.se/api/v2/scheduledepisodes/rightnow?channelid="+channelId+"&format=json");
         xhr.onreadystatechange = function() {
+            console.log("getrightnow", xhr.readyState)
             if (xhr.readyState === XMLHttpRequest.DONE)
             {
                 rightnow = JSON.parse(xhr.responseText)

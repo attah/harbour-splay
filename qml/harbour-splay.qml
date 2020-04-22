@@ -19,6 +19,12 @@ ApplicationWindow
             reactivated()
     }
 
+    Item {
+        id: timekeeper
+        property var endtimes: new Object
+        property var rightnow: new Object
+    }
+
 
     Item {
         id: db
