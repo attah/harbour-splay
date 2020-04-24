@@ -66,7 +66,7 @@ Page {
                 visible: program_id != 0
                 property bool is_favourite: db.isFavourite(program_id)
                 icon.source: is_favourite ? "image://theme/icon-m-favorite-selected" : "image://theme/icon-m-favorite"
-                onClicked: { is_favourite ? db.unsetFavourite(program_id) : db.setFavourite(program_id, name); is_favourite = db.isFavourite(program_id)}
+                onClicked: { is_favourite ? db.unsetFavourite(program_id) : db.setFavourite(program_id, program_name); is_favourite = db.isFavourite(program_id)}
             }
 
         }
