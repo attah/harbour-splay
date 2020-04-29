@@ -15,6 +15,7 @@ Page {
             id: searchField
             width: parent.width
             placeholderText: qsTr("Sök")
+            anchors.verticalCenter: parent.verticalCenter
 
             onTextChanged: {
                 results.source = "https://api.sr.se/api/v2/episodes/search/?format=json&query="+text
