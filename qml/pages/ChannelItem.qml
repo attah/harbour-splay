@@ -43,7 +43,6 @@ BackgroundItem {
         onTriggered: {
             var now = new Date();
             var nextChange = timekeeper.endtimes[channelId] ? timekeeper.endtimes[channelId] : 0
-            console.log("Timer", now, nextChange)
             if (now > nextChange)
             {
                 getRightnow();
@@ -96,7 +95,6 @@ BackgroundItem {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", "http://api.sr.se/api/v2/scheduledepisodes/rightnow?channelid="+channelId+"&format=json");
         xhr.onreadystatechange = function() {
-            console.log("getrightnow", xhr.readyState)
             if (xhr.readyState === XMLHttpRequest.DONE)
             {
                 rightnow = JSON.parse(xhr.responseText)
