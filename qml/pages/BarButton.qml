@@ -29,13 +29,15 @@ BackgroundItem {
 
     Label {
         id: label
-        x: Theme.paddingMedium
+        rightPadding: Theme.paddingLarge
         text: parent.text
+        anchors.right: image.left
         anchors.verticalCenter: parent.verticalCenter
         color: barButton.highlighted ? Theme.highlightColor : Theme.primaryColor
     }
 
     Image {
+        id: image
         anchors.right: parent.right
         anchors.rightMargin: Theme.paddingMedium
         anchors.verticalCenter: parent.verticalCenter

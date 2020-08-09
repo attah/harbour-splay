@@ -10,6 +10,9 @@ Page {
     // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
+        contentHeight: page.orientation == Orientation.Portrait
+                       ? column1.height + column2.height +header.height + Theme.paddingMedium
+                       : column1.height + Theme.paddingMedium
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
@@ -44,7 +47,7 @@ Page {
             Label {
                 text: qsTr("Livekanaler")
                 x: Theme.paddingMedium
-                bottomPadding: Theme.paddingSmall
+                bottomPadding: Theme.paddingMedium
             }
 
 
@@ -93,7 +96,7 @@ Page {
             Label {
                 text: qsTr("Senast publicerade program")
                 x: Theme.paddingMedium
-                bottomPadding: Theme.paddingSmall
+                bottomPadding: Theme.paddingMedium
             }
             JSONListModel {
                 id: lastpublished
