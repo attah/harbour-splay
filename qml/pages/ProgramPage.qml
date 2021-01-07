@@ -79,7 +79,7 @@ Page {
                 Label {
                     x: Theme.horizontalPageMargin
                     width: parent.width-2*Theme.horizontalPageMargin
-                    text: title
+                    text: title.replace(/\*([A-ZÅÄÖa-zåäö0-9]+)\*/g,"<b>$1</b>")
                     color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
                     wrapMode: "WordWrap"
                 }
