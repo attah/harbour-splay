@@ -54,7 +54,7 @@ Page {
 
              Label {
                  id: title_label
-                 text: title
+                 text: title.replace(/\*([A-ZÅÄÖa-zåäö0-9]+)\*/g,"<b>$1</b>")
                  property bool going_left: true
                  property int pad: Theme.paddingLarge
                  property int right_position: pad
