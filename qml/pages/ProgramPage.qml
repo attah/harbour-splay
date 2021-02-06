@@ -52,12 +52,13 @@ Page {
             id: pageheader
             title: program_name
             description: " " //to get some extra space
-
             IconButton {
                 id: favourite
                 parent: pageheader.extraContent
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.paddingMedium
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: -height/4
 
                 Component.onCompleted: {
                     pageheader.extraContent.anchors.right = pageheader.right
