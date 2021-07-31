@@ -71,9 +71,9 @@ Page {
             }
 
         }
-        delegate: BackgroundItem {
+        delegate: ListItem {
             id: delegate
-            height: detailsColumn.implicitHeight+Theme.paddingSmall
+            height: detailsColumn.implicitHeight+Theme.paddingSmall + programMenu.height
             Column {
                 id: detailsColumn
                 width: parent.width
@@ -111,9 +111,15 @@ Page {
 
             }
 
-            function getFile() {
-                return model.listenpodfile ? model.listenpodfile : model.broadcast.broadcastfiles[0]
+            function hasBroadcast() {
+                console.log(model.broadcast != undefined  && model.broadcast.broadcastfiles.length)
+                return model.broadcast != undefined && model.broadcast.broadcastfiles.length
             }
+
+            function getFile() {
+                return hasBroadcast() ? model.broadcast.broadcastfiles[0] : model.listenpodfile
+            }
+
 
             onClicked:  {
                 //console.log()
@@ -121,12 +127,23 @@ Page {
                                {name: program.name,
                                 title: title,
                                 imageurl: imageurl,
-                                url: getFile().url,
+                                url: hasBroadcast() ? model.broadcast.broadcastfiles[0].url : model.listenpodfile.url,
                                 program_id: program.id,
                                 episode_id: id,
-                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,
+                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : "",
                                 description: model.description});
             }
+            menu: ContextMenu {
+                id: programMenu
+                enabled: model.downloadpodfile
+                MenuItem {
+                    text: qsTr("Ladda ner")
+                    onClicked: {
+                        Qt.openUrlExternally(model.downloadpodfile.url)
+                    }
+                }
+            }
+
         }
         VerticalScrollDecorator {}
     }

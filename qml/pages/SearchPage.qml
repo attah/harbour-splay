@@ -66,19 +66,23 @@ Page {
                     font.pixelSize: Theme.fontSizeTiny
                 }
             }
+
+            function hasBroadcast() {
+                console.log(model.broadcast != undefined  && model.broadcast.broadcastfiles.length)
+                return model.broadcast != undefined && model.broadcast.broadcastfiles.length
+            }
+
             onClicked:  {
                 console.log("pushing program", id)
                 pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
                                {name: program.name,
                                 title: title,
                                 imageurl: imageurl,
-                                url: model.listenpodfile ? model.listenpodfile.url : model.broadcast.broadcastfiles[0].url,
+                                url: hasBroadcast() ? model.broadcast.broadcastfiles[0].url : model.listenpodfile.url,
                                 program_id: program.id,
                                 episode_id: id,
-                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : undefined,
+                                downloadurl: model.downloadpodfile ? model.downloadpodfile.url : "",
                                 description: model.description});
-
-
             }
             menu: ContextMenu {
                 MenuItem {
@@ -87,6 +91,13 @@ Page {
                                               {url:  "https://api.sr.se/api/v2/episodes/index?format=json&size=20&programid="+program.id,
                                                program_name: program.name,
                                                program_id: program.id});
+                }
+                MenuItem {
+                    text: qsTr("Ladda ner")
+                    enabled: model.downloadpodfile
+                    onClicked: {
+                        Qt.openUrlExternally(model.downloadpodfile.url)
+                    }
                 }
             }
         }

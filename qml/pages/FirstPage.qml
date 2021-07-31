@@ -138,6 +138,11 @@ Page {
 
                     }
 
+                    function hasBroadcast() {
+                        console.log(model.broadcast != undefined  && model.broadcast.broadcastfiles.length)
+                        return model.broadcast != undefined && model.broadcast.broadcastfiles.length
+                    }
+
                     onClicked:  {
                         console.log(imageurl)
                         pageStack.push(Qt.resolvedUrl("PlayPage.qml"),
@@ -146,7 +151,7 @@ Page {
                                         name: program.name,
                                         title: title,
                                         imageurl: imageurl,
-                                        url: model.listenpodfile ? model.listenpodfile.url : model.broadcast.broadcastfiles[0].url,
+                                        url: hasBroadcast() ? model.broadcast.broadcastfiles[0].url : model.listenpodfile.url,
                                         downloadurl: model.downloadpodfile ? model.downloadpodfile.url : ""});
                     }
                 }
