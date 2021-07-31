@@ -66,7 +66,7 @@ ApplicationWindow
         function updateFavourites() {
             favourites_model.clear();
             db_conn.transaction(function (tx) {
-                var rs = tx.executeSql('SELECT * FROM Favourites');
+                var rs = tx.executeSql('SELECT * FROM Favourites ORDER BY name');
                 for (var i = 0; i < rs.rows.length; i++) {
                     console.log("fav!", rs.rows.item(i).id, rs.rows.item(i).name);
                     favourites_model.append(rs.rows.item(i));
