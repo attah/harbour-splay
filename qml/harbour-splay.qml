@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import QtMultimedia 5.6
 import Sailfish.Silica 1.0
+import Amber.Mpris 1.0
 import "pages"
 
 ApplicationWindow
@@ -173,16 +174,6 @@ ApplicationWindow
         }
 
         onPlaying: {
-            if (!inited) {
-                inited = true;
-                console.log("go!");
-                var thingy = Qt.createComponent("Controls.notqml");
-                if (thingy.status == Component.Ready) {
-                    console.log("gone");
-                    thingy.createObject(appWin, {name: name});
-                    console.log("gun");
-                }
-            }
             playRetry.stop();
             liveReset.stop();
         }
@@ -206,6 +197,36 @@ ApplicationWindow
                 }
             }
         }
+    }
+
+    MprisPlayer {
+
+        id: mprisConnection
+        serviceName: "splay"
+        playbackStatus: globalMedia.playbackState == MediaPlayer.PlayingState ? Mpris.Playing : Mpris.Paused
+
+        identity: "Splay Controller"
+
+        canControl: true
+
+        canPause: true
+        canPlay: true
+        canGoNext: true
+        canGoPrevious: true
+
+        canSeek: false
+
+        onPauseRequested: globalMedia.pause()
+        onPlayRequested: globalMedia.play()
+        onPlayPauseRequested: globalMedia.togglePlaying()
+        onNextRequested: globalMedia.goForward()
+        onPreviousRequested: globalMedia.goBackward()
+
+        metaData {
+            title: globalMedia.name
+        }
+
+
     }
 
 }
