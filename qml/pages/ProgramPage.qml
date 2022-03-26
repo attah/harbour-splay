@@ -73,7 +73,7 @@ Page {
         }
         delegate: ListItem {
             id: delegate
-            height: detailsColumn.implicitHeight+Theme.paddingSmall + programMenu.height
+            contentHeight: detailsColumn.implicitHeight+Theme.paddingSmall
             Column {
                 id: detailsColumn
                 width: parent.width
