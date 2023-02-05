@@ -205,14 +205,14 @@ ApplicationWindow
         serviceName: "splay"
         playbackStatus: globalMedia.playbackState == MediaPlayer.PlayingState ? Mpris.Playing : Mpris.Paused
 
-        identity: "Splay Controller"
+        identity: "S'Play"
 
         canControl: true
 
         canPause: true
         canPlay: true
-        canGoNext: true
-        canGoPrevious: true
+        canGoNext: globalMedia.duration !== 0
+        canGoPrevious: globalMedia.duration !== 0
 
         canSeek: false
 
@@ -224,6 +224,7 @@ ApplicationWindow
 
         metaData {
             title: globalMedia.name
+            artUrl: globalMedia.imageurl
         }
 
 
